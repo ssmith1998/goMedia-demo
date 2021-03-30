@@ -44,6 +44,9 @@
           class="text-grey-8"
         >
           Navigation
+          <div class="row">
+            <p class="q-pt-sm"><strong>Hello {{username}}({{email}})</strong></p>
+          </div>
         </q-item-label>
         <EssentialLink
           v-for="link in essentialLinks"
@@ -62,6 +65,7 @@
 
 <script>
 import EssentialLink from 'components/EssentialLink.vue'
+import Axios from 'axios';
 
 const linksData = [
   {
@@ -102,6 +106,7 @@ export default {
       leftDrawerOpen: false,
       essentialLinks: linksData,
       authToken: localStorage.getItem('authToken'),
+    
       
     }
   },
@@ -111,11 +116,17 @@ export default {
      localStorage.removeItem('authToken')
      this.updateAuthenticated(false);
      this.$router.push({name:'login'})
-   }
+   },
+
+
   },
 
   computed: { 
-    ...mapGetters('auth', ['isAuthenticated'])
+    ...mapGetters('auth', ['isAuthenticated', 'username', 'email'])
+  },
+
+  mounted(){
+     
   }
 }
 </script>

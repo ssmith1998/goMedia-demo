@@ -9,7 +9,7 @@ class TransactionController extends Controller
 {
     public function getAll(){
 
-        $transactions = Transaction::all();
+        $transactions = Transaction::with('User')->get();
 
         return response()->json([
             'logs' => $transactions

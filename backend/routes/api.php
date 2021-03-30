@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\TransactionController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,12 @@ use App\Http\Controllers\TransactionController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+//get User routes
+Route::get('/user', function(Request $request){
+    return response()->json(['user' => $request->user()]);
+})->middleware('auth:sanctum');;
+
 
 //login route
 Route::post('/login', [AuthController::class, 'login'])->name('login');

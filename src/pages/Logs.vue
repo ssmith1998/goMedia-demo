@@ -25,7 +25,7 @@
 <script>
 import Axios from "axios"
 import {mapActions, mapGetters} from "vuex";
-import moment from 'moment'
+import { date } from 'quasar'
 
 export default {
   name: 'Logs',
@@ -43,7 +43,7 @@ methods:{
             
 
                 for(let i = 0; i < response.data.logs.length; i++){
-
+                      
                     console.log(response.data.logs[i])
                     this.data.push(
                         {
@@ -108,13 +108,7 @@ mounted(){
     this.getLogs();
 },
 
-filters:{
-     date: function (value) {
-    if (value) {
-    return moment(String(value)).format('MM/DD/YYYY hh:mm')
-  }
-  }
-}
+
 
 
 

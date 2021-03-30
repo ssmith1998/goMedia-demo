@@ -1,7 +1,10 @@
 
 import Vue from 'vue' ;
 const state = {
-   isAuthenticated: false
+   isAuthenticated: false,
+   username:'',
+   email:''
+
 }
 
 const mutations = {
@@ -9,6 +12,18 @@ const mutations = {
         // mutate state
         console.log(payload);
         state.isAuthenticated = payload
+      },
+
+      updateUsername (state, payload) {
+        // mutate state
+        console.log(payload);
+        state.username = payload
+      },
+
+      updateEmail(state, payload) {
+        // mutate state
+        console.log(payload);
+        state.email = payload
       }
 }
 
@@ -17,13 +32,33 @@ updateAuthenticated({commit}, payload){
 // console.log(payload);
 
 commit('updateAuthenticated', payload)
-}
+},
+
+updateUsername({commit}, payload){
+    // console.log(payload);
+    
+    commit('updateUsername', payload)
+    },
+
+    updateEmail({commit}, payload){
+        // console.log(payload);
+        
+        commit('updateEmail', payload)
+        }
 }
 
 const getters = {
     isAuthenticated: state => {
         return state.isAuthenticated
-      }
+      },
+
+      username: state => {
+            return state.username
+      },
+
+      email: state => {
+        return state.email
+  }
 
 }
 
