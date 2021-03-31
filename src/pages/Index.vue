@@ -11,11 +11,11 @@
 
         <div v-if="books.length > 0" class="listing-wrapper">
 
-        <q-card  v-for="book in books" v-bind:key="book.id">
+        <q-card class="bg-primary"  v-for="book in books" v-bind:key="book.id">
         
         <q-card-section>
-          <h5><strong>Title :{{book.name}}</strong></h5>
-          <h6 >Author :{{book.author}}</h6>
+          <h5 class="text-white"><strong>Title :{{book.name}}</strong></h5>
+          <h6 class="text-white" >Author :{{book.author}}</h6>
         </q-card-section>
 
         <q-separator />
@@ -23,7 +23,7 @@
         <q-card-actions class="flex content-center">
           <q-btn flat @click.prevent="editBook(book.id)"> <q-icon name="edit" color="yellow"   /></q-btn>
           <q-btn flat @click.prevent="deleteBook(book.id)"> <q-icon name="delete" color="red"  /></q-btn>
-        <q-btn flat @click.prevent="viewBook(book.id)"><q-icon name="visibility" color="blue"   /></q-btn>
+        <q-btn flat @click.prevent="viewBook(book.id)"><q-icon name="visibility" color="white"   /></q-btn>
         
         </q-card-actions>
       </q-card>
@@ -142,6 +142,10 @@ justify-content: space-between;
   margin-left: 50px;
   font-size: 30px;
 }
+}
+
+h5,h6{
+  margin: 0px;
 }
 }
 </style>
