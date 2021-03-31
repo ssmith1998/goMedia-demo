@@ -9,14 +9,16 @@
           <q-btn color="primary" @click.prevent="addBook()"> Add Book<q-icon name="edit" color="yellow"   /></q-btn>
       </div>
 
-     <div v-if="books.length > 0" class="listing-wrapper">
+        <div v-if="books.length > 0" class="listing-wrapper">
 
- <q-card  v-for="book in books" v-bind:key="book.id">
+        <q-card  v-for="book in books" v-bind:key="book.id">
         
         <q-card-section>
-          <h5>Title :{{book.name}}</h5>
-          <h5 >Author :{{book.author}}</h5>
+          <h5><strong>Title :{{book.name}}</strong></h5>
+          <h6 >Author :{{book.author}}</h6>
         </q-card-section>
+
+        <q-separator />
 
         <q-card-actions class="flex content-center">
           <q-btn flat @click.prevent="editBook(book.id)"> <q-icon name="edit" color="yellow"   /></q-btn>
