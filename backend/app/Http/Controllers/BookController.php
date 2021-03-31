@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 class BookController extends Controller
 {
     public function bookNew(Request $request){
-        if($request->has('name') && $request->has('author')){
+
+        if($request->has('name') && $request->has('author') && $request->input('name') !== null && $request->input('author') !== null){
             /** @var User $user */
             $user = $request->user();
             /** @var Book $book */
@@ -122,7 +123,7 @@ class BookController extends Controller
         /** @var User $user */
         $user = $request->user();
 
-        if($request->has('bookId') && $request->has('name') && $request->has('author')){
+        if($request->has('bookId') && $request->has('name') && $request->has('author') && $request->input('name') !== null && $request->input('author') !== null){
             /** @var Book $foundBook */
             $foundBook = Book::find($request->input('bookId'));
         if($foundBook){
@@ -149,6 +150,11 @@ class BookController extends Controller
                 'message' => 'No Item Found'
             ]); 
         }
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'please fill all required fields'
+            ]); 
         }
     }
 }

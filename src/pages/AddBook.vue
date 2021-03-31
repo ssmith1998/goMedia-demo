@@ -10,7 +10,7 @@
         v-model="formData.bookName"
         label="Name *"
         lazy-rules
-        :rules="[ val => val && val.length > 0 || 'Please type something']"
+        :rules="[ val => val && val.length > 0 || 'Please provide a name for this book']"
       />
 
       <q-input
@@ -19,7 +19,7 @@
         v-model="formData.bookAuthor"
         label="Author*"
         lazy-rules
-        :rules="[ val => val && val.length > 0 || 'Please type something']"
+        :rules="[ val => val && val.length > 0 || 'Please provide an author for this book']"
 
       />
 
@@ -61,7 +61,8 @@ export default {
                   Authorization: 'Bearer ' + localStorage.getItem('authToken'),
               }
       }
-    Axios.post('http://127.0.0.1:8000/api/book/new/', {name: this.formData.bookName,author:this.formData.bookAuthor}, config).then(response => {
+    Axios.post('http://127.0.0.1:8000/api/book/new/', {'name': this.formData.bookName,'author':this.formData.bookAuthor}, config).then(response => {
+      console.log(response);
     if(response.data.success === true){
     this.$q.notify({
       message: 'Book Added to your Library!.',
