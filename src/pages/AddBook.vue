@@ -61,15 +61,16 @@ export default {
                   Authorization: 'Bearer ' + localStorage.getItem('authToken'),
               }
       }
-      Axios.post('http://127.0.0.1:8000/api/book/new/', {name: this.formData.bookName,author:this.formData.bookAuthor}, config).then(response => {
-      
-          this.$q.notify({
-        message: 'Book Added to your Library!.',
-        color: 'green'
-      })
-          this.updateBooks(response.data.books);
+    Axios.post('http://127.0.0.1:8000/api/book/new/', {name: this.formData.bookName,author:this.formData.bookAuthor}, config).then(response => {
+    if(response.data.success === true){
+    this.$q.notify({
+      message: 'Book Added to your Library!.',
+      color: 'green'
+    })
+    this.$router.push({name:'dashboard'});
+    this.updateBooks(response.data.books);
        
-      
+    }
       })
     },
     },

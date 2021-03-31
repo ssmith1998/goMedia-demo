@@ -63,12 +63,14 @@ export default {
       }
       Axios.post('http://127.0.0.1:8000/api/book/edit/', {name: this.formData.bookName,author:this.formData.bookAuthor, bookId:id}, config).then(response => {
         console.log(response);
-         
+        //check if response has succss true
+         if(response.data.success === true){
           this.$q.notify({
         message: 'Book Updated succesfully!.',
         color: 'green'
       })
         this.updateBooks(response.data.books);
+         }
       })
     },
 
