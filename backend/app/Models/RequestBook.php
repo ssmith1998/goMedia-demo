@@ -4,19 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\RequestBook;
+use App\Models\User;
+use App\Models\Book;
 
-class Book extends Model
+class RequestBook extends Model
 {
     use HasFactory;
+
+    protected $table = 'requests';
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function requests()
+    public function book()
     {
-        return $this->hasMany(RequestBook::class);
+        return $this->belongsTo(Book::class);
     }
 }

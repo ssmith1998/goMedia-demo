@@ -86,4 +86,8 @@ export default {
 width: 100%;
 }
 
+.q-form {
+  width: 75%;
+}
+
 </style>

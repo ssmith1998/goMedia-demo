@@ -37,7 +37,7 @@ export default {
   },
 
   methods: {
-     ...mapActions('auth', ['updateAuthenticated', 'updateUsername', 'updateEmail']),
+     ...mapActions('auth', ['updateAuthenticated', 'updateUsername', 'updateEmail', 'updateUser', 'updateToken']),
     loginUser(){
       Axios.post('http://127.0.0.1:8000/api/login', this.formData).then(response => {
        if(response.data.token){
@@ -47,6 +47,8 @@ export default {
           this.updateUsername(response.data.user.name);
           this.updateEmail(response.data.user.email);
           this.updateAuthenticated(true);
+          this.updateUser(response.data.user);
+          this.updateToken(response.data.token.plainTextToken);
            this.$router.push({ name: 'dashboard'});
        }else{
        this.$q.notify({

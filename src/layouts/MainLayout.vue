@@ -13,7 +13,8 @@
         />
 
         <q-toolbar-title class="absolute-center">
-       Demo Project
+       Book Swap
+        <span class="material-icons">library_books</span>
         </q-toolbar-title>
 
          <q-btn
@@ -92,6 +93,13 @@ const linksData = [
     title: 'Logs',
     icon: 'analytics',
     link: '/logs',
+    Authenticated:true
+  },
+
+   {
+    title: 'Borrowing Marketplace',
+    icon: 'local_library',
+    link: '/borrowing/marketplace',
     Authenticated:true
   },
 

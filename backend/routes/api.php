@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\RequestController;
 use App\Models\User;
 
 /*
@@ -19,7 +20,7 @@ use App\Models\User;
 */
 
 //get User routes
-Route::get('/user', function(Request $request){
+Route::get('/user', function (Request $request) {
     return response()->json(['user' => $request->user()]);
 })->middleware('auth:sanctum');;
 
@@ -33,9 +34,15 @@ Route::get('/books', [BookController::class, 'getBooks'])->middleware('auth:sanc
 Route::post('/book/edit', [BookController::class, 'editBook'])->middleware('auth:sanctum');;
 Route::get('/book/delete/{id}', [BookController::class, 'deleteBook'])->middleware('auth:sanctum');;
 Route::post('/book/new', [BookController::class, 'bookNew'])->middleware('auth:sanctum');;
+Route::get('/books/available', [BookController::class, 'getAvailableBooks'])->middleware('auth:sanctum');;
 
 //transactions 
 Route::get('/logs', [TransactionController::class, 'getAll'])->middleware('auth:sanctum');
 Route::post('/logs/filter', [TransactionController::class, 'filterTransactions'])->middleware('auth:sanctum');
 
-
+//requestsRecieved
+Route::get('/requests/recieved', [RequestController::class, 'requestsRecieved'])->middleware('auth:sanctum');;
+Route::get('/requests/sent', [RequestController::class, 'requestsMade'])->middleware('auth:sanctum');;
+Route::get('/request/accept/{id}', [RequestController::class, 'acceptRequest'])->middleware('auth:sanctum');;
+Route::get('/request/send/{id}', [RequestController::class, 'sendRequest'])->middleware('auth:sanctum');;
+Route::get('/request/delete/{id}', [RequestController::class, 'deleteRequest'])->middleware('auth:sanctum');;

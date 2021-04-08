@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './auth'
 import books from './books'
+import marketplace from './marketplace'
 
 // import example from './module-example'
 
@@ -16,11 +17,12 @@ Vue.use(Vuex)
  * with the Store instance.
  */
 
-export default function (/* { ssrContext } */) {
+export default function ( /* { ssrContext } */ ) {
   const Store = new Vuex.Store({
     modules: {
-     auth,
-     books
+      auth,
+      books,
+      marketplace
     },
 
     // enable strict mode (adds overhead!)

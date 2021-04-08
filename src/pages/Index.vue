@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="">
   <div class="wrapper" >
    
       <div class="headerWrapper">
@@ -9,9 +9,9 @@
           <q-btn color="primary" @click.prevent="addBook()"> Add Book<q-icon name="edit" color="yellow"   /></q-btn>
       </div>
 
-        <div v-if="books.length > 0" class="listing-wrapper">
-
-        <q-card class="bg-primary"  v-for="book in books" v-bind:key="book.id">
+        <div v-if="books.length > 0" class="listing-wrapper row">
+          <div class="col-12 col-sm-6 q-pa-sm" v-for="book in books" v-bind:key="book.id">
+        <q-card class="bg-primary">
         
         <q-card-section>
           <h5 class="text-white"><strong>Title :{{book.name}}</strong></h5>
@@ -27,6 +27,7 @@
         
         </q-card-actions>
       </q-card>
+      </div>
      </div>
 
      <div v-else class="noBooks">
@@ -129,11 +130,9 @@ export default {
 
 .wrapper{
   width: 75%;
+  margin: 0px auto;
 
-  .q-card{
-    margin-bottom: 40px;
-   
-  }
+ 
 .headerWrapper{
 display:flex;
 align-items: center;

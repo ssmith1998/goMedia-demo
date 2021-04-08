@@ -12,7 +12,7 @@ use App\Models\Book;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -44,11 +44,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function books(){
+    public function books()
+    {
         return $this->hasMany(Book::class);
     }
 
-    public function transactions(){
+    public function transactions()
+    {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function requests()
+    {
+        return $this->hasMany(RequestBook::class);
     }
 }
