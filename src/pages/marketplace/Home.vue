@@ -34,13 +34,18 @@ export default {
     return{
       card:false,
       requestRecievedCount:0,
-      requestSentCount:0
+      requestSentCount:0,
+      requestsAllCount: 0
     }
   },
 
   mounted(){
     this.getBooks();
+     this.getRequests()
     this.getRequestsSent();
+    this.getRequestsRecieved();
+   
+    
   },
 
   computed: {
@@ -50,19 +55,46 @@ export default {
   },
 
   methods: {
-    ...mapActions('marketplace', ['getBooks']),
+    ...mapActions('marketplace', ['getBooks', 'updateRequests']),
 
     getRequestsSent(){
        let sent = [];
       for(let i = 0; i < this.requests.length; i++){
        
-        if(this.getUser.id === this.requests[i].user.id){
+        if(this.getUser.id === this.requests[i].user_id){
          sent.push(this.requests[i])
         }
       }
       this.requestSentCount = sent.length;
       console.log(this.requestSentCount);
+    },
+
+    getRequestsRecieved(){
+       let recieved = [];
+      for(let i = 0; i < this.requests.length; i++){
+       
+        if(this.getUser.id !== this.requests[i].user_id && this.requests[i].request.deleted === 0 ){
+         recieved.push(this.requests[i])
+        }
+      }
+      this.requestRecievedCount = recieved.length;
+      console.log(this.requestRecievedCount);
+    },
+
+    getRequests(){
+      let config = {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('authToken'),
+      }
     }
+      axios.get('http://127.0.0.1:8000/api/requests', config).then(response => {
+      console.log('requests', response);
+      this.updateRequests(response.data.requests);
+      
+    })
+    }
+
+    
 
 
     },

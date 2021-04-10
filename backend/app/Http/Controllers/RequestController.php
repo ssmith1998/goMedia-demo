@@ -16,7 +16,8 @@ class RequestController extends Controller
         $user = $request->user();
 
         /** @var RequestBook[] $requests*/
-        $requests = $user->requests()->get();
+
+        $requests = RequestBook::with('Book')->where('user_id', $user->id)->get();
 
         return response()->json([
             'requests' => $requests
@@ -40,10 +41,13 @@ class RequestController extends Controller
 
             /** @var RequestBook $requestBook */
             foreach ($book->requests()->get() as $requestBook) {
-                $requests[] =  [
-                    'user' => $requestBook->user()->first(),
-                    'book' => $requestBook->book()->first(),
-                ];
+                if ($requestBook->deleted === 0) {
+                    $requests[] =  [
+                        'request' => $requestBook,
+                        'user' => $requestBook->user()->first(),
+                        'book' => $requestBook->book()->first(),
+                    ];
+                }
             }
         }
 
@@ -71,12 +75,22 @@ class RequestController extends Controller
         $requestBook->accepted = true;
         //set book availability to false
         $book->available = false;
+        $requestBook->deleted = true;
+
+        /** @var RequestBook[] $requestsOfBook */
+        $requestsOfBook = $book->requests()->get();
+
+        foreach ($requestsOfBook as $requestOfBook) {
+            if ($requestOfBook->deleted === 0) {
+                $requestOfBook->deleted = 1;
+            }
+        }
+
         //associate new user 
         $book->user()->associate($requestedUser);
 
         //save book
         $book->save();
-        //save request
         $requestBook->save();
 
         return response()->json([
@@ -139,5 +153,41 @@ class RequestController extends Controller
                 'request' => $requestBook
             ]);
         }
+    }
+
+    public function allRequests(Request $request)
+    {
+        /** @var User $user*/
+        $user = $request->user();
+
+        $books = $user->books()->get();
+
+        /** @var RequestBook[] $requests*/
+        $requests = [];
+
+
+        /** @var Book[] $books */
+        foreach ($books as $book) {
+
+            /** @var RequestBook $requestBook */
+            foreach ($book->requests()->get() as $requestBook) {
+                $requests[] =  [
+                    'request' => $requestBook,
+                    'user' => $requestBook->user()->first(),
+                    'book' => $requestBook->book()->first(),
+                ];
+            }
+        }
+
+        /** @var RequestBook[] $requestsSent */
+        $requestsSent = RequestBook::with(['Book'])->where('user_id', $request->user()->id)->get();
+
+        foreach ($requestsSent as $requestBook) {
+            $requests[] = $requestBook;
+        }
+
+        return response()->json([
+            'requests' => $requests
+        ]);
     }
 }

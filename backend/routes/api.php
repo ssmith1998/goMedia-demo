@@ -43,6 +43,7 @@ Route::post('/logs/filter', [TransactionController::class, 'filterTransactions']
 //requestsRecieved
 Route::get('/requests/recieved', [RequestController::class, 'requestsRecieved'])->middleware('auth:sanctum');;
 Route::get('/requests/sent', [RequestController::class, 'requestsMade'])->middleware('auth:sanctum');;
-Route::get('/request/accept/{id}', [RequestController::class, 'acceptRequest'])->middleware('auth:sanctum');;
+Route::get('/request/accept/{id}', [RequestController::class, 'acceptRequest'])->middleware('auth:sanctum');
+Route::get('/requests', [RequestController::class, 'allRequests'])->middleware('auth:sanctum');
 Route::get('/request/send/{id}', [RequestController::class, 'sendRequest'])->middleware('auth:sanctum');;
 Route::get('/request/delete/{id}', [RequestController::class, 'deleteRequest'])->middleware('auth:sanctum');;

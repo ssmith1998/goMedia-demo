@@ -24,13 +24,13 @@ id="book">
          
 <div class="actionWrapper__right">
           <button v-if="getUser.id !== userId && isRequested === false"   @click="sendRequest(id)" id="requestBtn" tabindex="0" type="button" role="button" class="q-btn q-btn-item non-selectable no-outline q-btn--flat q-btn--rectangle q-btn--actionable q-focusable q-hoverable q-btn--wrap"><span class="q-focus-helper"></span><span class="q-btn__wrapper col row q-anchor--skip"><span class="q-btn__content text-center col items-center q-anchor--skip justify-center row"><i aria-hidden="true" role="presentation" class="material-icons q-icon notranslate text-red">done</i></span></span></button>
-          <button v-else-if="isRequested === true" disabled tabindex="0" type="button" role="button" class="q-btn q-btn-item non-selectable no-outline q-btn--flat q-btn--rectangle q-btn--actionable q-focusable q-hoverable q-btn--wrap"><span class="q-focus-helper"></span><span class="q-btn__wrapper col row q-anchor--skip"><span class="q-btn__content text-center col items-center q-anchor--skip justify-center row"><i aria-hidden="true" role="presentation">request sent</i></span></span></button>
+          <button v-else-if="isRequested === true && getUser.id !== userId" disabled tabindex="0" type="button" role="button" class="q-btn q-btn-item non-selectable no-outline q-btn--flat q-btn--rectangle q-btn--actionable q-focusable q-hoverable q-btn--wrap"><span class="q-focus-helper"></span><span class="q-btn__wrapper col row q-anchor--skip"><span class="q-btn__content text-center col items-center q-anchor--skip justify-center row"><i aria-hidden="true" role="presentation">request sent</i></span></span></button>
           <button tabindex="0" type="button" role="button" class="q-btn q-btn-item non-selectable no-outline q-btn--flat q-btn--rectangle q-btn--actionable q-focusable q-hoverable q-btn--wrap"><span class="q-focus-helper"></span><span class="q-btn__wrapper col row q-anchor--skip"><span class="q-btn__content text-center col items-center q-anchor--skip justify-center row"><i aria-hidden="true" role="presentation" class="material-icons q-icon notranslate text-blue">visibility</i></span></span></button></div>
         </div>
       
         
           
-          <button v-if="isRequested === true" type="button" role="button" class="q-btn q-btn-item non-selectable no-outline q-btn--flat q-btn--rectangle q-btn--actionable q-focusable q-hoverable q-btn--wrap"><span class="q-focus-helper"></span><span class="q-btn__wrapper col row q-anchor--skip"><span class="q-btn__content text-center col items-center q-anchor--skip justify-center row"><i aria-hidden="true" role="presentation">View Request</i></span></span></button>
+          <button v-if="isRequested === true && getUser.id !== userId" type="button" role="button" class="q-btn q-btn-item non-selectable no-outline q-btn--flat q-btn--rectangle q-btn--actionable q-focusable q-hoverable q-btn--wrap"><span class="q-focus-helper"></span><span class="q-btn__wrapper col row q-anchor--skip"><span class="q-btn__content text-center col items-center q-anchor--skip justify-center row"><i aria-hidden="true" role="presentation">View Request</i></span></span></button>
           
        
       </q-card-section>
@@ -90,7 +90,7 @@ this.$q.dialog({
      checkIfRequested(){
        console.log(this.requests)
        for(let i = 0; i < this.requests.length; i++){
-         if(this.id === this.requests[i].book_id && this.getUser.id === this.requests[i].user.id ){
+         if(this.id === this.requests[i].book_id && this.getUser.id === this.requests[i].user_id && this.requests[i].deleted === 0 ){
            this.isRequested = true;
            console.log('requested true')
          }
